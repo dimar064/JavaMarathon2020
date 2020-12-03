@@ -11,23 +11,21 @@ public class Task1 {
         scanner.close();
         int[] numbers = new int[n];
         Random random = new Random();
-        for (int i = 0; i < n; i++) {
-            numbers[i] = random.nextInt(10);
-        }
-        System.out.println(Arrays.toString(numbers));
-        System.out.println("Длина массива: " + numbers.length);
         int moreThanEight = 0;
         int equalsToOne = 0;
         int even = 0;
         int odd = 0;
         int sum = 0;
-        for (int number : numbers) {
-            if (number > 8) moreThanEight++;
-            if (number == 1) equalsToOne++;
-            if (number % 2 == 0) even++;
+        for (int i = 0; i < n; i++) {
+            numbers[i] = random.nextInt(10);
+            if (numbers[i] > 8) moreThanEight++;
+            if (numbers[i] == 1) equalsToOne++;
+            if (numbers[i] % 2 == 0) even++;
             else odd++;
-            sum += number;
+            sum += numbers[i];
         }
+        System.out.println(Arrays.toString(numbers));
+        System.out.println("Длина массива: " + numbers.length);
         System.out.println("Количество чисел больше 8: " + moreThanEight);
         System.out.println("Количество чисел равных 1: " + equalsToOne);
         System.out.println("Количество четных чисел: " + even);
