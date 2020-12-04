@@ -1,33 +1,37 @@
 package day4;
 
 import java.util.Random;
+import java.util.Scanner;
 
 /**
- * предлагаю доработать, изменив условие:
- * массив не из 100, а из 100 000 элементов
- * не "тройка" чисел, а "пятидесятка"
+ * кол-во чисел, объединяемых в группы для поиска (тройка, пятидесятка и т.п.),
+ * должно вводиться с клавиатуры.
+ * Диапазон вводимого числа от 2 до длинны массива - 1
  */
 
 public class Task4 {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        scanner.close();
         int[] numbers = new int[100_000];
         Random random = new Random();
-        int adjacentElements = 50;
-        int maxSumAdjacentElements = 0;
-        int sumAdjacentElements = 0;
-        int indexOfFirst = 0;
         for (int i = 0; i < numbers.length; i++) {
             numbers[i] = random.nextInt(10_000);
-            if (i < adjacentElements) maxSumAdjacentElements = sumAdjacentElements += numbers[i];
-            else {
-                sumAdjacentElements = sumAdjacentElements + numbers[i] - numbers[i - adjacentElements];
-                if (sumAdjacentElements >= maxSumAdjacentElements) {
-                    maxSumAdjacentElements = sumAdjacentElements;
-                    indexOfFirst = i - (adjacentElements - 1);
-                }
+        }
+        int maxSumAdjacentElements = 0;
+        int maxIndexOfFirst = 0;
+        for (int i = 0; i < numbers.length - (n - 1); i++) {
+            int sumAdjacentElements = 0;
+            for (int j = i; j < i + n; j++) {
+                sumAdjacentElements += numbers[j];
+            }
+            if (sumAdjacentElements >= maxSumAdjacentElements) {
+                maxSumAdjacentElements = sumAdjacentElements;
+                maxIndexOfFirst = i;
             }
         }
         System.out.println(maxSumAdjacentElements);
-        System.out.println(indexOfFirst);
+        System.out.println(maxIndexOfFirst);
     }
 }
