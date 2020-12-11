@@ -1,46 +1,37 @@
 package day11.task2;
 
-public class Paladin extends Hero implements PhysAttack, Healer {
-    private final int healHimself;
-    private final int healTeammate;
+public class Paladin extends Hero implements Healer {
+    private final int healHimself = 25;
+    private final int healTeammate = 10;
 
-    public Paladin(int physDef, int magicDef, int physAtt, int healHimself, int healTeammate) {
-        super(physDef, magicDef, physAtt, 0);
-        this.healHimself = healHimself;
-        this.healTeammate = healTeammate;
+    public Paladin() {
+        super.physDef = 50;
+        super.magicDef = 20;
+        super.physAtt = 15;
     }
 
     @Override
     public String toString() {
         return "Paladin{" +
-                "health=" + getHealth() +
+                "health=" + health +
                 '}';
     }
 
     @Override
-    public void physicalAttack(Hero hero) {
-        if (hero.getHealth() > (getPhysAtt() - getPhysAtt() * hero.getPhysDef() / 100)) {
-            hero.setHealth(hero.getHealth() - (getPhysAtt() - getPhysAtt() * hero.getPhysDef() / 100));
-        } else {
-            hero.setHealth(MIN_HEALTH);
-        }
-    }
-
-    @Override
     public void healHimself() {
-        if (getHealth() + healHimself < MAX_HEALTH) {
-            setHealth(getHealth() + healHimself);
+        if (health + healHimself < MAX_HEALTH) {
+            health += healHimself;
         } else {
-            setHealth(MAX_HEALTH);
+            health = MAX_HEALTH;
         }
     }
 
     @Override
     public void healTeammate(Hero hero) {
-        if (hero.getHealth() + healTeammate < MAX_HEALTH) {
-            hero.setHealth(hero.getHealth() + healTeammate);
+        if (hero.health + healTeammate < MAX_HEALTH) {
+            hero.health += healTeammate;
         } else {
-            hero.setHealth(MAX_HEALTH);
+            hero.health = MAX_HEALTH;
         }
     }
 }

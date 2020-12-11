@@ -1,55 +1,48 @@
 package day11.task2;
 
-public class Shaman extends Hero implements PhysAttack, MagicAttack, Healer {
-    private int healHimself;
-    private int healTeammate;
+public class Shaman extends Hero implements MagicAttack, Healer {
+    private final int healHimself = 50;
+    private final int healTeammate = 30;
+    private final int magicAtt = 15;
 
-    public Shaman(int physDef, int magicDef, int physAtt, int magicAtt, int healHimself, int healTeammate) {
-        super(physDef, magicDef, physAtt, magicAtt);
-        this.healHimself = healHimself;
-        this.healTeammate = healTeammate;
+    public Shaman() {
+        super.physDef = 20;
+        super.magicDef = 20;
+        super.physAtt = 10;
     }
 
     @Override
     public String toString() {
         return "Shaman{" +
-                "health=" + getHealth() +
+                "health=" + health +
                 '}';
     }
 
     @Override
-    public void physicalAttack(Hero hero) {
-        if (hero.getHealth() > (getPhysAtt() - getPhysAtt() * hero.getPhysDef() / 100)) {
-            hero.setHealth(hero.getHealth() - (getPhysAtt() - getPhysAtt() * hero.getPhysDef() / 100));
-        } else {
-            hero.setHealth(MIN_HEALTH);
-        }
-    }
-
-    @Override
     public void magicalAttack(Hero hero) {
-        if (hero.getHealth() > (getMagicAtt() - getMagicAtt() * hero.getMagicDef() / 100)) {
-            hero.setHealth(hero.getHealth() - (getMagicAtt() - getMagicAtt() * hero.getMagicDef() / 100));
+        double amountOfDamage = magicAtt - magicAtt * hero.magicDef / 100.0;
+        if (hero.health > amountOfDamage) {
+            hero.health -= amountOfDamage;
         } else {
-            hero.setHealth(MIN_HEALTH);
+            hero.health = MIN_HEALTH;
         }
     }
 
     @Override
     public void healHimself() {
-        if (getHealth() + healHimself < MAX_HEALTH) {
-            setHealth(getHealth() + healHimself);
+        if (health + healHimself < MAX_HEALTH) {
+            health += healHimself;
         } else {
-            setHealth(MAX_HEALTH);
+            health = MAX_HEALTH;
         }
     }
 
     @Override
     public void healTeammate(Hero hero) {
-        if (hero.getHealth() + healTeammate < MAX_HEALTH) {
-            hero.setHealth(hero.getHealth() + healTeammate);
+        if (hero.health + healTeammate < MAX_HEALTH) {
+            hero.health += healTeammate;
         } else {
-            hero.setHealth(MAX_HEALTH);
+            hero.health = MAX_HEALTH;
         }
     }
 }
