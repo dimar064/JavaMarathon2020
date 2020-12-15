@@ -22,16 +22,14 @@ public class Task1 {
             }
             scanner.close();
             if (i != 10) {
-                try {
-                    throw new IOException();
-                } catch (IOException e) {
-                    System.out.println("Некорректный входной файл");
-                }
+                throw new IOException("Некорректный входной файл");
             } else {
                 System.out.println(sum);
             }
         } catch (FileNotFoundException e) {
             System.out.println("Файл не найден");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

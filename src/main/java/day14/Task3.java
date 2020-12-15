@@ -22,13 +22,7 @@ public class Task3 {
                 String[] data = line.split(" ");
                 int age = Integer.parseInt(data[1]);
                 if (age < 0) {
-                    try {
-                        throw new IOException();
-                    } catch (IOException e) {
-                        System.out.println("Некорректный входной файл");
-                        list.clear();
-                        break;
-                    }
+                    throw new IOException("Некорректный входной файл");
                 } else {
                     list.add(new Person(data[0], age));
                 }
@@ -36,6 +30,9 @@ public class Task3 {
             scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("Файл не найден");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            list.clear();
         }
         return list;
     }

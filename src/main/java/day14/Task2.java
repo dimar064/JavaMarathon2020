@@ -21,13 +21,7 @@ public class Task2 {
                 String line = scanner.nextLine();
                 String[] data = line.split(" ");
                 if (Integer.parseInt(data[1]) < 0) {
-                    try {
-                        throw new IOException();
-                    } catch (IOException e) {
-                        System.out.println("Некорректный входной файл");
-                        list.clear();
-                        break;
-                    }
+                    throw new IOException("Некорректный входной файл");
                 } else {
                     list.add(line);
                 }
@@ -35,6 +29,9 @@ public class Task2 {
             scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("Файл не найден");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            list.clear();
         }
         return list;
     }
