@@ -21,12 +21,16 @@ public class Task2 {
         Scanner scanner = new Scanner(file1);
         String[] numbers = scanner.nextLine().split(" ");
         int n = 20;
-        for (int i = 0; i < numbers.length / n; i++) {
-            double sum = 0;
-            for (int j = n * i; j < n * (i + 1); j++) {
-                sum += Integer.parseInt(numbers[j]);
+        int sum = 0;
+        int count = 0;
+        for (String number : numbers) {
+            sum += Integer.parseInt(number);
+            count++;
+            if (count == n) {
+                writer1.print((double) sum / n + " ");
+                sum = 0;
+                count = 0;
             }
-            writer1.print(sum / n + " ");
         }
         writer1.close();
         scanner.close();
